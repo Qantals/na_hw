@@ -28,7 +28,7 @@ end
 
 
 function dst = csr_jacobi_iteration(A, b, src)
-    % csr_jacobi_iteration - Iterate A * dst(k + 1) = b, src = dst(k) using Jacobi iteration.
+    % csr_jacobi_iteration - Iterate A * x(k + 1) = b, src = x(k), dst = x(k + 1) using Jacobi iteration.
     % 
     % Description:
     %     Jacobi iteration for Ax=b:
@@ -36,12 +36,10 @@ function dst = csr_jacobi_iteration(A, b, src)
     %     x(k + 1) = D^{-1} * (L + U) * x(k) + D^{-1} * b
     % 
     %     From code to result above:
-    %     dst(k + 1) = (b + (L + U) * src) * D^{-1}
-    %          = b * D^{-1} + (L + U) * src * D^{-1}
-    %          = D^{-1} * b + D^{-1} * (L + U) * src
-    %          = D^{-1} * (L + U) * src + D^{-1} * b 
-    % 
-    %     So dst(k) = src
+    %     x(k + 1) = (b + (L + U) * x(k)) * D^{-1}
+    %          = b * D^{-1} + (L + U) * x(k) * D^{-1}
+    %          = D^{-1} * b + D^{-1} * (L + U) * x(k)
+    %          = D^{-1} * (L + U) * x(k) + D^{-1} * b 
 
     n = length(src);
     dst = b;
@@ -54,7 +52,7 @@ function dst = csr_jacobi_iteration(A, b, src)
 end
 
 function dst = csr_gs_iteration(A, b, src)
-    % csr_gs_iteration - Iterate A * dst(k + 1) = b, src = dst(k) using Gauss-Seidel iteration.
+    % csr_gs_iteration - Iterate A * x(k + 1) = b, src = x(k), dst = x(k + 1) using Gauss-Seidel iteration.
     % 
     % Description:
     %     Gauss-Seidel iteration for Ax=b:
@@ -62,8 +60,8 @@ function dst = csr_gs_iteration(A, b, src)
     %     x(k + 1) = (D - L)^{-1} * U * x(k) + (D - L)^{-1} * b
     % 
     %     From result above to code:
-    %     dst(k + 1) = (D - L)^{-1} * U * dst(k) + (D - L)^{-1} * b
-    %                = (D - L)^{-1} * (b + U * dst(k))
+    %     x(k + 1) = (D - L)^{-1} * U * x(k) + (D - L)^{-1} * b
+    %                = (D - L)^{-1} * (b + U * x(k))
     %     We can left multiply (D - L) and use lower triangle characteristic to do iteration.
 
     n = length(src);
@@ -82,7 +80,7 @@ function dst = csr_gs_iteration(A, b, src)
 end
 
 function dst = csr_gd_iteration(A, b, src)
-    % csr_gd_iteration - Iterate A * dst(k + 1) = b, src = dst(k) using gradient descent iteration.
+    % csr_gd_iteration - Iterate A * x(k + 1) = b, src = x(k), dst = x(k + 1) using gradient descent iteration.
     %     Called function "csr_vmult()".
     % 
     % Description:
@@ -90,11 +88,10 @@ function dst = csr_gd_iteration(A, b, src)
     %     $r$ is negative gradient direction
     %     $\alpha$ is step size
     %     $(,)$ is vector norm
+    % 
     %     r(k) = b - A * x(k)
     %     \alpha(k) = \frac{(r(k), r(k))}{(A * r(k), r(k))}
     %     x(k + 1) = x(k) + \alpha(k) * r(k)
-    % 
-    %     So dst = x
 
     r = b - csr_vmult(A, src);
     alpha = (r' * r) / (r' * csr_vmult(A, r));
