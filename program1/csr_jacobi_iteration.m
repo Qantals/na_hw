@@ -2,17 +2,17 @@ function dst = csr_jacobi_iteration(A, b, src)
     % Iterate A * dst(k + 1) = b, src = dst(k) using Jacobi iteration.
     % 
     % Description:
-    %     % Jacobi iteration for Ax=b:
+    %     Jacobi iteration for Ax=b:
     %     A = D - L - U
     %     x(k + 1) = D^{-1} * (L + U) * x(k) + D^{-1} * b
     % 
-    %     % From code to result above:
+    %     From code to result above:
     %     dst(k + 1) = (b + (L + U) * src) * D^{-1}
     %          = b * D^{-1} + (L + U) * src * D^{-1}
     %          = D^{-1} * b + D^{-1} * (L + U) * src
     %          = D^{-1} * (L + U) * src + D^{-1} * b 
     % 
-    %     % So dst(k) = src
+    %     So dst(k) = src
 
     n = length(src);
     dst = b;

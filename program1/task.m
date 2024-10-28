@@ -42,3 +42,7 @@ for n = [8, 16, 32, 64, 128]
     x0 = zeros(n, 1);
     x = gs_solver(A, b, x0, max_iteration, tol);
 end
+
+%% TASK 7
+fprintf('Task 7: csr_gd_iteration(A, b, b)\n');
+csr_gd_iteration(A, b, b)
