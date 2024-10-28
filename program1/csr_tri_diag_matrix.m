@@ -1,6 +1,6 @@
 function [A] = csr_tri_diag_matrix(n)
+    % csr_tri_diag_matrix - Create a triangle diagonal Compressed Sparse Row matrix with specific requirements given in the problem.
     % Description:
-    %     Create a triangle diagonal Compressed Sparse Row matrix with specific requirements given in the problem.
     %     Modified that the first non-zero element of each line is set to be diagonal element.
     % 
     % Inputs:

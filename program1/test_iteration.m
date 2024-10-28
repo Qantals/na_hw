@@ -9,6 +9,6 @@ max_iteration = 1000000;
 tol = 1e-7;
 x0 = zeros(n, 1);
 
-x = jacobi_solver(A, b, x0, max_iteration, tol);
+x = iteration_solver(A, b, x0, max_iteration, tol, "Jacobi");
 
 plot(linspace(0, 1, n + 2), [0, x', 0]);

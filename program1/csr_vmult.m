@@ -1,5 +1,5 @@
 function dst = csr_vmult(A, src)
-    % Get dst = A * src, where "A" is sparse square matrix and "src" is column vector.
+    % csr_vmult - Get dst = A * src, where "A" is sparse square matrix and "src" is column vector.
 
     n = length(src);
     dst = zeros(n, 1);

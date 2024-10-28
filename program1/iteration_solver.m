@@ -1,7 +1,9 @@
-function x = jacobi_solver(A, b, x0, max_iteration, tol)
+function x = iteration_solver(A, b, x0, max_iteration, tol, method)
+    % iteration_solver - Iteration method solver.
+
     x = x0;
     for k = 1 : max_iteration
-        p = csr_jacobi_iteration(A, b, x);
+        p = csr_iteration(A, b, x, method);
         if norm(x - p) < tol
             fprintf('Iteration stops at step %d.\n', k);
             x = p;
