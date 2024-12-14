@@ -1,3 +1,4 @@
+% test iteration_solver using Jacobi method
 clear all;
 format long;
 
